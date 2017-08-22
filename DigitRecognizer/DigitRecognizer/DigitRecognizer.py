@@ -26,11 +26,19 @@ del data
 del images
 del labels
 
-#Converto numpy arrays for tensorflow
+num_labels = 10 #0-9
+
+#Convert to numpy arrays for tensorflow
 train_images = train_images.as_matrix()
 test_images = test_images.as_matrix()
 train_labels = train_labels.as_matrix()
 test_labels = test_labels.as_matrix()
+
+#Reformat labels as 1-hot encoding
+train_labels = (np.arange(num_labels) == train_labels[:,None]).astype(np.float32)
+test_labels = (np.arange(num_labels) == test_labels[:,None]).astype(np.float32)
+
+
 
 
 
