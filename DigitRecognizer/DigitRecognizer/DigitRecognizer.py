@@ -161,6 +161,14 @@ def LoadAndRun():
         x = test_prediction.eval();
         results = np.argmax(x, 1)
         print(results)
+        with open("results/results.csv", 'w') as file:
+            file.write("ImageId,Label\n")
+            for idx, prediction in enumerate(results):
+                file.write(str(idx + 1))
+                file.write(",")
+                file.write(str(prediction))
+                file.write("\n")
+
 
 
 LoadAndRun();
