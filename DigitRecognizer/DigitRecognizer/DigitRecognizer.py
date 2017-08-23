@@ -8,6 +8,12 @@ image_size = 28     #28x28 images
 num_channels = 1    #Not RGB, just single values for each pixel
 num_labels = 10     #0-9
 
+batch_size = 128
+patch_size = 5
+depth = 16
+num_hidden = 64
+
+
 #Load data  
 data = pd.read_csv("../input/train.csv");
 
@@ -42,10 +48,6 @@ test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matr
 
 def ConvNet():
 
-    batch_size = 128
-    patch_size = 5
-    depth = 16
-    num_hidden = 64
 
     graph = tf.Graph()
     with graph.as_default():
@@ -115,4 +117,44 @@ def ConvNet():
 
 
 
-ConvNet();
+def LoadAndRun():
+    tf.reset_default_graph()
+    graph = tf.Graph()
+
+    with graph.as_default():
+      # Input data.
+      tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
+      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
+      tf_test_dataset = tf.constant(test_images, dtype=tf.float32)
+      
+      # Variables.
+      layer1_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, num_channels, depth], stddev=0.1))
+      layer1_biases = tf.Variable(tf.zeros([depth]))
+      layer2_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, depth, depth], stddev=0.1))
+      layer2_biases = tf.Variable(tf.constant(1.0, shape=[depth]))
+      layer3_weights = tf.Variable(tf.truncated_normal([image_size // 4 * image_size // 4 * depth, num_hidden], stddev=0.1))
+      layer3_biases = tf.Variable(tf.constant(1.0, shape=[num_hidden]))
+      layer4_weights = tf.Variable(tf.truncated_normal([num_hidden, num_labels], stddev=0.1))
+      layer4_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
+
+      # Model.
+      def model(data):
+        conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layer1_biases)
+        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        conv = tf.nn.conv2d(pool_1, layer2_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layer2_biases)
+        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        shape = pool_1.get_shape().as_list()
+        reshape = tf.reshape(pool_1, [shape[0], shape[1] * shape[2] * shape[3]])
+        hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
+        return tf.matmul(hidden, layer4_weights) + layer4_biases
+
+
+      with tf.Session(graph=graph) as session:
+        saver = tf.train.Saver()
+        saver.restore(session, "model/model.ckpt")
+        print("Restored")
+        print(layer1_weights.eval())
+
+LoadAndRun();
