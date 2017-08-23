@@ -42,7 +42,7 @@ test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matr
 
 def ConvNet():
 
-    batch_size = 16
+    batch_size = 128
     patch_size = 5
     depth = 16
     num_hidden = 64
@@ -86,13 +86,13 @@ def ConvNet():
       loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
         
       # Optimizer.
-      optimizer = tf.train.AdadeltaOptimizer(0.05).minimize(loss)
+      optimizer = tf.train.AdamOptimizer(0.000005).minimize(loss)
       
       # Predictions for the training, validation, and test data.
       train_prediction = tf.nn.softmax(logits)
       test_prediction = tf.nn.softmax(model(tf_test_dataset))
 
-      num_steps = 10001
+      num_steps = 15001
 
     with tf.Session(graph=graph) as session:
       tf.global_variables_initializer().run()
