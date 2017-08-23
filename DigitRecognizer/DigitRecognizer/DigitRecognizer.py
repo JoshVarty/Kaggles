@@ -92,7 +92,7 @@ def ConvNet():
       train_prediction = tf.nn.softmax(logits)
       test_prediction = tf.nn.softmax(model(tf_test_dataset))
 
-      num_steps = 15001
+      num_steps = 1501
 
     with tf.Session(graph=graph) as session:
       tf.global_variables_initializer().run()
@@ -111,7 +111,7 @@ def ConvNet():
       
       #Save session
       saver = tf.train.Saver()
-      save_path = saver.save(session, "model.ckpt")
+      save_path = saver.save(session, "model/model.ckpt")
 
 
 
