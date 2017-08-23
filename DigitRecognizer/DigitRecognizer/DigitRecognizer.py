@@ -41,7 +41,7 @@ test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matr
 
 def ConvNet():
 
-    batch_size = 16
+    batch_size = 32 
     patch_size = 5
     depth = 16
     num_hidden = 64
@@ -83,7 +83,7 @@ def ConvNet():
         return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
       
       # Training computation.
-      logits = model(tf_train_dataset, 0.75)
+      logits = model(tf_train_dataset, 0.5)
       loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
         
       # Optimizer.
@@ -104,7 +104,7 @@ def ConvNet():
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
         _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
-        if (step % 50 == 0):
+        if (step % 250 == 0):
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
 
