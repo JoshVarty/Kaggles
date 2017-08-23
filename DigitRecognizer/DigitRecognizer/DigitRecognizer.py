@@ -16,6 +16,9 @@ num_hidden = 64
 
 #Load data  
 data = pd.read_csv("../input/train.csv");
+test_data = pd.read_csv("../input/test.csv");
+test_data = test_data.as_matrix().reshape((-1, image_size, image_size, num_channels)).astype(np.float32)
+
 
 #Partition into train/test sets
 images = data.iloc[0:5000,1:]
@@ -47,7 +50,6 @@ test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matr
 
 
 def ConvNet():
-
 
     graph = tf.Graph()
     with graph.as_default():
@@ -123,9 +125,7 @@ def LoadAndRun():
 
     with graph.as_default():
       # Input data.
-      tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
-      tf_test_dataset = tf.constant(test_images, dtype=tf.float32)
+      tf_test_dataset = tf.constant(test_data, dtype=tf.float32)
       
       # Variables.
       layer1_weights = tf.Variable(tf.truncated_normal([patch_size, patch_size, num_channels, depth], stddev=0.1))
@@ -150,11 +150,17 @@ def LoadAndRun():
         hidden = tf.nn.relu(tf.matmul(reshape, layer3_weights) + layer3_biases)
         return tf.matmul(hidden, layer4_weights) + layer4_biases
 
+      test_prediction = tf.nn.softmax(model(tf_test_dataset))
+
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
         saver.restore(session, "model/model.ckpt")
         print("Restored")
-        print(layer1_weights.eval())
+
+        x = test_prediction.eval();
+        results = np.argmax(x, 1)
+        print(results)
+
 
 LoadAndRun();
