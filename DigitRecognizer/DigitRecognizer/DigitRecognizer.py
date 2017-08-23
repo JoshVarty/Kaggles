@@ -108,6 +108,10 @@ def ConvNet():
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
 
       print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
+      
+      #Save session
+      saver = tf.train.Saver()
+      save_path = saver.save(session, "model.ckpt")
 
 
 
