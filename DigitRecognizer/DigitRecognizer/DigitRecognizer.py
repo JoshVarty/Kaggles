@@ -75,7 +75,7 @@ def ConvNet():
 
       fc = 7 * 7 * 64
       layer5_weights = tf.Variable(tf.truncated_normal([fc, num_labels], stddev=0.1))
-      layer5_biases = tf.Variable(tf.constant(1.0, shape=[fc]))
+      layer5_biases = tf.Variable(tf.constant(1.0, shape=[num_labels]))
 
       # Model.
       def model(data):
