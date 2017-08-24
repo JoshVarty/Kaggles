@@ -98,7 +98,7 @@ def ConvNet():
       train_prediction = tf.nn.softmax(logits)
       test_prediction = tf.nn.softmax(model(tf_test_dataset))
 
-      num_steps = 15001
+      num_steps = 20001
 
     with tf.Session(graph=graph) as session:
       merged = tf.summary.merge_all()
@@ -182,4 +182,4 @@ def LoadAndRun():
 
 
 
-LoadAndRun();
+ConvNet();
