@@ -89,6 +89,8 @@ def ConvNet():
       logits = model(tf_train_dataset)
       loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
         
+      tf.summary.scalar("Loss", loss)
+
       # Optimizer.
       optimizer = tf.train.AdamOptimizer(0.000005).minimize(loss)
       
@@ -99,6 +101,9 @@ def ConvNet():
       num_steps = 15001
 
     with tf.Session(graph=graph) as session:
+      merged = tf.summary.merge_all()
+      writer = tf.summary.FileWriter('./train', session.graph)
+
       tf.global_variables_initializer().run()
       print('Initialized')
       for step in range(num_steps):
@@ -106,10 +111,16 @@ def ConvNet():
         batch_data = train_images[offset:(offset + batch_size), :, :, :]
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
-        _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
-        if (step % 50 == 0):
+
+        if (step % 100 == 0):
+          _, l, predictions, m = session.run([optimizer, loss, train_prediction, merged], feed_dict=feed_dict)
+          writer.add_summary(m, step)
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
+        else:
+          #Don't pass in merged dictionary for better performance
+          _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
+
 
       print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
       
