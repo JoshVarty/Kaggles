@@ -92,7 +92,7 @@ def ConvNet():
       tf.summary.scalar("Loss", loss)
 
       # Optimizer.
-      optimizer = tf.train.AdamOptimizer(0.000005).minimize(loss)
+      optimizer = tf.train.AdamOptimizer(0.0000045).minimize(loss)
       
       # Predictions for the training, validation, and test data.
       train_prediction = tf.nn.softmax(logits)
