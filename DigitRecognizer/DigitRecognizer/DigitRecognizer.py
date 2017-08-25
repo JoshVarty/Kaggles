@@ -77,28 +77,33 @@ def ConvNet():
       layer5_biases = tf.get_variable("layer5_biases", [num_labels], initializer=tf.contrib.layers.xavier_initializer())
 
       # Model
-      def model(data):
+      def model(data, keep_prob):
+        #Conv->Relu->Conv-Relu->Pool
         conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer1_biases)
         conv = tf.nn.conv2d(hidden, layer2_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer2_biases)
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+        #Conv->Relu->Conv-Relu->Pool
         conv = tf.nn.conv2d(pool_1, layer3_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer3_biases)
         conv = tf.nn.conv2d(hidden, layer4_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer4_biases)
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+        #Dropout
+        drop = tf.nn.dropout(pool_1, keep_prob)
+
         shape = pool_1.get_shape().as_list()
-        reshape = tf.reshape(pool_1, [shape[0], shape[1] * shape[2] * shape[3]])
+        reshape = tf.reshape(drop, [shape[0], shape[1] * shape[2] * shape[3]])
         return tf.matmul(reshape, layer5_weights) + layer5_biases
 
       def accuracy(predictions, labels):
         return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
       
       # Training computation.
-      logits = model(tf_train_dataset)
+      logits = model(tf_train_dataset, 0.75)
       loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
         
       tf.summary.scalar("Loss", loss)
@@ -108,7 +113,7 @@ def ConvNet():
       
       # Predictions for the training, validation, and test data.
       train_prediction = tf.nn.softmax(logits)
-      test_prediction = tf.nn.softmax(model(tf_test_dataset))
+      test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
       num_steps = 20001
 
@@ -169,7 +174,7 @@ def LoadAndRun():
       layer5_biases = tf.get_variable("layer5_biases", [num_labels], initializer=tf.contrib.layers.xavier_initializer())
 
       # Model
-      def model(data):
+      def model(data, keep_prob):
         conv = tf.nn.conv2d(data, layer1_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer1_biases)
         conv = tf.nn.conv2d(hidden, layer2_weights, [1, 1, 1, 1], padding='SAME')
