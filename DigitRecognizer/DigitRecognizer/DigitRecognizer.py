@@ -109,13 +109,13 @@ def ConvNet():
       tf.summary.scalar("Loss", loss)
 
       # Optimizer.
-      optimizer = tf.train.AdamOptimizer(0.0000045).minimize(loss)
+      optimizer = tf.train.AdamOptimizer(0.0000035).minimize(loss)
       
       # Predictions for the training, validation, and test data.
       train_prediction = tf.nn.softmax(logits)
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
-      num_steps = 20001
+      num_steps = 30001
 
     with tf.Session(graph=graph) as session:
       merged = tf.summary.merge_all()
@@ -213,4 +213,4 @@ def LoadAndRun():
 
 
 
-LoadAndRun();
+ConvNet();
