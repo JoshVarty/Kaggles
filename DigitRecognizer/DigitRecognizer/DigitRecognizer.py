@@ -124,11 +124,12 @@ def ConvNet():
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
 
-        if (step % 100 == 0):
+        if (step % 250 == 0):
           _, l, predictions, m = session.run([optimizer, loss, train_prediction, merged], feed_dict=feed_dict)
           writer.add_summary(m, step)
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
+          print('Test accuracy: %.1f%%' % accuracy(test_prediction.eval(), test_labels))
         else:
           #Don't pass in merged dictionary for better performance
           _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
@@ -194,4 +195,4 @@ def LoadAndRun():
 
 
 
-ConvNet();
+LoadAndRun();
