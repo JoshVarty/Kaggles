@@ -103,7 +103,7 @@ def ConvNet():
         return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
       
       # Training computation.
-      logits = model(tf_train_dataset, 0.75)
+      logits = model(tf_train_dataset, 0.5)
       loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf_train_labels, logits=logits))
         
       tf.summary.scalar("Loss", loss)
@@ -192,7 +192,7 @@ def LoadAndRun():
         return tf.matmul(reshape, layer5_weights) + layer5_biases
 
 
-      test_prediction = tf.nn.softmax(model(tf_test_dataset))
+      test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
 
       with tf.Session(graph=graph) as session:
@@ -213,4 +213,4 @@ def LoadAndRun():
 
 
 
-ConvNet();
+LoadAndRun()

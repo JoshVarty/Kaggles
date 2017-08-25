@@ -1,0 +1,370 @@
+Shapes Before Reformat
+train_images:  (4000, 784)
+train_labels:  (4000, 1)
+test_images:  (1000, 784)
+test_labels:  (1000, 1)
+Initialized
+Minibatch loss at step 0: 17.446632
+Minibatch accuracy: 13.3%
+Test accuracy: 9.9%
+Minibatch loss at step 250: 8.559942
+Minibatch accuracy: 14.8%
+Test accuracy: 20.0%
+Minibatch loss at step 500: 5.105259
+Minibatch accuracy: 23.4%
+Test accuracy: 34.2%
+Minibatch loss at step 750: 3.816991
+Minibatch accuracy: 30.5%
+Test accuracy: 47.3%
+Minibatch loss at step 1000: 2.640571
+Minibatch accuracy: 43.8%
+Test accuracy: 56.1%
+Minibatch loss at step 1250: 2.573329
+Minibatch accuracy: 35.9%
+Test accuracy: 63.5%
+Minibatch loss at step 1500: 1.849839
+Minibatch accuracy: 50.0%
+Test accuracy: 68.4%
+Minibatch loss at step 1750: 1.552723
+Minibatch accuracy: 53.1%
+Test accuracy: 71.4%
+Minibatch loss at step 2000: 1.503376
+Minibatch accuracy: 57.0%
+Test accuracy: 74.2%
+Minibatch loss at step 2250: 0.981725
+Minibatch accuracy: 65.6%
+Test accuracy: 77.0%
+Minibatch loss at step 2500: 1.062402
+Minibatch accuracy: 64.1%
+Test accuracy: 79.7%
+Minibatch loss at step 2750: 0.972701
+Minibatch accuracy: 68.8%
+Test accuracy: 81.7%
+Minibatch loss at step 3000: 0.948840
+Minibatch accuracy: 71.1%
+Test accuracy: 83.2%
+Minibatch loss at step 3250: 0.714896
+Minibatch accuracy: 77.3%
+Test accuracy: 84.9%
+Minibatch loss at step 3500: 0.553523
+Minibatch accuracy: 78.9%
+Test accuracy: 85.7%
+Minibatch loss at step 3750: 0.796556
+Minibatch accuracy: 73.4%
+Test accuracy: 86.5%
+Minibatch loss at step 4000: 0.551280
+Minibatch accuracy: 81.2%
+Test accuracy: 86.9%
+Minibatch loss at step 4250: 0.567069
+Minibatch accuracy: 81.2%
+Test accuracy: 87.6%
+Minibatch loss at step 4500: 0.467768
+Minibatch accuracy: 85.9%
+Test accuracy: 88.7%
+Minibatch loss at step 4750: 0.636365
+Minibatch accuracy: 78.1%
+Test accuracy: 89.2%
+Minibatch loss at step 5000: 0.445101
+Minibatch accuracy: 84.4%
+Test accuracy: 89.9%
+Minibatch loss at step 5250: 0.447023
+Minibatch accuracy: 85.2%
+Test accuracy: 90.3%
+Minibatch loss at step 5500: 0.409567
+Minibatch accuracy: 82.0%
+Test accuracy: 91.1%
+Minibatch loss at step 5750: 0.304853
+Minibatch accuracy: 89.1%
+Test accuracy: 91.2%
+Minibatch loss at step 6000: 0.347624
+Minibatch accuracy: 89.1%
+Test accuracy: 91.4%
+Minibatch loss at step 6250: 0.486019
+Minibatch accuracy: 87.5%
+Test accuracy: 91.8%
+Minibatch loss at step 6500: 0.221788
+Minibatch accuracy: 89.1%
+Test accuracy: 91.9%
+Minibatch loss at step 6750: 0.432140
+Minibatch accuracy: 85.2%
+Test accuracy: 92.1%
+Minibatch loss at step 7000: 0.180900
+Minibatch accuracy: 94.5%
+Test accuracy: 92.5%
+Minibatch loss at step 7250: 0.194025
+Minibatch accuracy: 90.6%
+Test accuracy: 93.0%
+Minibatch loss at step 7500: 0.237647
+Minibatch accuracy: 93.8%
+Test accuracy: 93.3%
+Minibatch loss at step 7750: 0.232743
+Minibatch accuracy: 91.4%
+Test accuracy: 93.4%
+Minibatch loss at step 8000: 0.289154
+Minibatch accuracy: 91.4%
+Test accuracy: 93.4%
+Minibatch loss at step 8250: 0.164923
+Minibatch accuracy: 93.8%
+Test accuracy: 93.6%
+Minibatch loss at step 8500: 0.171377
+Minibatch accuracy: 92.2%
+Test accuracy: 93.8%
+Minibatch loss at step 8750: 0.155469
+Minibatch accuracy: 94.5%
+Test accuracy: 93.9%
+Minibatch loss at step 9000: 0.257375
+Minibatch accuracy: 93.0%
+Test accuracy: 93.9%
+Minibatch loss at step 9250: 0.324785
+Minibatch accuracy: 89.8%
+Test accuracy: 94.2%
+Minibatch loss at step 9500: 0.210607
+Minibatch accuracy: 96.1%
+Test accuracy: 94.4%
+Minibatch loss at step 9750: 0.162126
+Minibatch accuracy: 94.5%
+Test accuracy: 94.5%
+Minibatch loss at step 10000: 0.123287
+Minibatch accuracy: 96.1%
+Test accuracy: 94.6%
+Minibatch loss at step 10250: 0.139853
+Minibatch accuracy: 93.0%
+Test accuracy: 94.6%
+Minibatch loss at step 10500: 0.096225
+Minibatch accuracy: 96.9%
+Test accuracy: 94.8%
+Minibatch loss at step 10750: 0.065906
+Minibatch accuracy: 97.7%
+Test accuracy: 95.0%
+Minibatch loss at step 11000: 0.097274
+Minibatch accuracy: 95.3%
+Test accuracy: 95.0%
+Minibatch loss at step 11250: 0.093980
+Minibatch accuracy: 97.7%
+Test accuracy: 95.1%
+Minibatch loss at step 11500: 0.164901
+Minibatch accuracy: 94.5%
+Test accuracy: 95.5%
+Minibatch loss at step 11750: 0.108070
+Minibatch accuracy: 94.5%
+Test accuracy: 95.5%
+Minibatch loss at step 12000: 0.038807
+Minibatch accuracy: 99.2%
+Test accuracy: 95.6%
+Minibatch loss at step 12250: 0.076497
+Minibatch accuracy: 98.4%
+Test accuracy: 95.7%
+Minibatch loss at step 12500: 0.087638
+Minibatch accuracy: 96.9%
+Test accuracy: 95.7%
+Minibatch loss at step 12750: 0.085081
+Minibatch accuracy: 96.1%
+Test accuracy: 95.7%
+Minibatch loss at step 13000: 0.094617
+Minibatch accuracy: 96.9%
+Test accuracy: 95.9%
+Minibatch loss at step 13250: 0.067126
+Minibatch accuracy: 99.2%
+Test accuracy: 95.9%
+Minibatch loss at step 13500: 0.031773
+Minibatch accuracy: 99.2%
+Test accuracy: 96.0%
+Minibatch loss at step 13750: 0.094266
+Minibatch accuracy: 96.9%
+Test accuracy: 96.0%
+Minibatch loss at step 14000: 0.128004
+Minibatch accuracy: 96.1%
+Test accuracy: 96.1%
+Minibatch loss at step 14250: 0.034981
+Minibatch accuracy: 100.0%
+Test accuracy: 96.1%
+Minibatch loss at step 14500: 0.099617
+Minibatch accuracy: 96.1%
+Test accuracy: 96.1%
+Minibatch loss at step 14750: 0.054984
+Minibatch accuracy: 98.4%
+Test accuracy: 96.1%
+Minibatch loss at step 15000: 0.044309
+Minibatch accuracy: 99.2%
+Test accuracy: 96.1%
+Minibatch loss at step 15250: 0.080457
+Minibatch accuracy: 96.9%
+Test accuracy: 96.3%
+Minibatch loss at step 15500: 0.022672
+Minibatch accuracy: 98.4%
+Test accuracy: 96.1%
+Minibatch loss at step 15750: 0.066235
+Minibatch accuracy: 97.7%
+Test accuracy: 96.2%
+Minibatch loss at step 16000: 0.035599
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 16250: 0.090840
+Minibatch accuracy: 97.7%
+Test accuracy: 96.3%
+Minibatch loss at step 16500: 0.040640
+Minibatch accuracy: 99.2%
+Test accuracy: 96.3%
+Minibatch loss at step 16750: 0.041004
+Minibatch accuracy: 99.2%
+Test accuracy: 96.1%
+Minibatch loss at step 17000: 0.035275
+Minibatch accuracy: 99.2%
+Test accuracy: 96.3%
+Minibatch loss at step 17250: 0.051801
+Minibatch accuracy: 96.9%
+Test accuracy: 96.4%
+Minibatch loss at step 17500: 0.066464
+Minibatch accuracy: 97.7%
+Test accuracy: 96.3%
+Minibatch loss at step 17750: 0.028138
+Minibatch accuracy: 99.2%
+Test accuracy: 96.3%
+Minibatch loss at step 18000: 0.044299
+Minibatch accuracy: 99.2%
+Test accuracy: 96.3%
+Minibatch loss at step 18250: 0.033862
+Minibatch accuracy: 98.4%
+Test accuracy: 96.3%
+Minibatch loss at step 18500: 0.045715
+Minibatch accuracy: 98.4%
+Test accuracy: 96.3%
+Minibatch loss at step 18750: 0.014879
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 19000: 0.009810
+Minibatch accuracy: 100.0%
+Test accuracy: 96.3%
+Minibatch loss at step 19250: 0.034693
+Minibatch accuracy: 98.4%
+Test accuracy: 96.4%
+Minibatch loss at step 19500: 0.021862
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 19750: 0.028221
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 20000: 0.032604
+Minibatch accuracy: 98.4%
+Test accuracy: 96.5%
+Minibatch loss at step 20250: 0.036348
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 20500: 0.018004
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 20750: 0.024862
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 21000: 0.015455
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 21250: 0.045088
+Minibatch accuracy: 97.7%
+Test accuracy: 96.6%
+Minibatch loss at step 21500: 0.014513
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Minibatch loss at step 21750: 0.044443
+Minibatch accuracy: 98.4%
+Test accuracy: 96.4%
+Minibatch loss at step 22000: 0.011168
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Minibatch loss at step 22250: 0.008165
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 22500: 0.033648
+Minibatch accuracy: 98.4%
+Test accuracy: 96.5%
+Minibatch loss at step 22750: 0.031154
+Minibatch accuracy: 99.2%
+Test accuracy: 96.6%
+Minibatch loss at step 23000: 0.023368
+Minibatch accuracy: 99.2%
+Test accuracy: 96.3%
+Minibatch loss at step 23250: 0.008765
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Minibatch loss at step 23500: 0.009256
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Minibatch loss at step 23750: 0.024367
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 24000: 0.006197
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 24250: 0.003021
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 24500: 0.012619
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 24750: 0.024477
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 25000: 0.009333
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 25250: 0.002551
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Minibatch loss at step 25500: 0.006048
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 25750: 0.003427
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 26000: 0.019642
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 26250: 0.036735
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 26500: 0.027759
+Minibatch accuracy: 99.2%
+Test accuracy: 96.2%
+Minibatch loss at step 26750: 0.005155
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 27000: 0.022247
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 27250: 0.004248
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 27500: 0.009893
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 27750: 0.012328
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 28000: 0.015434
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 28250: 0.003283
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 28500: 0.014127
+Minibatch accuracy: 99.2%
+Test accuracy: 96.4%
+Minibatch loss at step 28750: 0.002455
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 29000: 0.004653
+Minibatch accuracy: 100.0%
+Test accuracy: 96.5%
+Minibatch loss at step 29250: 0.024800
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 29500: 0.003098
+Minibatch accuracy: 100.0%
+Test accuracy: 96.4%
+Minibatch loss at step 29750: 0.016300
+Minibatch accuracy: 99.2%
+Test accuracy: 96.5%
+Minibatch loss at step 30000: 0.007205
+Minibatch accuracy: 100.0%
+Test accuracy: 96.6%
+Test accuracy: 96.6%
