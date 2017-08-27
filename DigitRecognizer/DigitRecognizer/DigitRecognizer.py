@@ -114,7 +114,7 @@ def ConvNet():
         reshape = tf.reshape(drop, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.matmul(reshape, layer7_weights) + layer7_biases 
         drop = tf.nn.dropout(hidden, keep_prob)
-        return tf.matmul(reshape, layer8_weights) + layer8_biases 
+        return tf.matmul(drop, layer8_weights) + layer8_biases 
 
       def accuracy(predictions, labels):
         return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
