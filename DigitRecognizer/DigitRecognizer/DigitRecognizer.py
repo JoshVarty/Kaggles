@@ -8,8 +8,9 @@ image_size = 28     #28x28 images
 num_channels = 1    #Not RGB, just single values for each pixel
 num_labels = 10     #0-9
 
-patch_size_7 = 7
+patch_size_3 = 3
 patch_size_5 = 5
+patch_size_7 = 7
 batch_size = 128
 
 depth = 16
@@ -71,7 +72,7 @@ def ConvNet():
       layer4_biases = tf.get_variable("layer4_biases",[depth * 4], initializer=tf.contrib.layers.xavier_initializer())
       layer5_weights = tf.get_variable("layer5_weights", [patch_size_5, patch_size_5, depth * 4, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer5_biases = tf.get_variable("layer5_biases",[depth * 8], initializer=tf.contrib.layers.xavier_initializer())
-      layer6_weights = tf.get_variable("layer6_weights", [patch_size_5, patch_size_5, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer6_weights = tf.get_variable("layer6_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer6_biases = tf.get_variable("layer6_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       fc = 2048
       layer7_weights = tf.get_variable("layer7_weights", [fc, num_labels], initializer=tf.contrib.layers.xavier_initializer())
