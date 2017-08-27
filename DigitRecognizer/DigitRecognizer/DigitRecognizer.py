@@ -218,6 +218,14 @@ def LoadAndRun():
         hidden = tf.nn.relu(conv + layer6_biases)
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+        #Dropout -> Fully Connected -> Dropout -> Fully Connected
+        drop = tf.nn.dropout(pool_1, keep_prob)
+        shape = drop.get_shape().as_list()
+        reshape = tf.reshape(drop, [shape[0], shape[1] * shape[2] * shape[3]])
+        hidden = tf.matmul(reshape, layer7_weights) + layer7_biases 
+        drop = tf.nn.dropout(hidden, keep_prob)
+        return tf.matmul(drop, layer8_weights) + layer8_biases 
+
 
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
