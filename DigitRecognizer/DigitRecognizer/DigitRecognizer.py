@@ -77,6 +77,9 @@ def ConvNet():
       fc = 2048
       layer7_weights = tf.get_variable("layer7_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
       layer7_biases = tf.get_variable("layer7_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
+
+      layerx_weights = tf.get_variable("layerx_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layerx_biases = tf.get_variable("layerx_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       
       fc = 2048
       layer8_weights = tf.get_variable("layer8_weights", [fc, num_labels], initializer=tf.contrib.layers.xavier_initializer())
@@ -105,8 +108,10 @@ def ConvNet():
 
         conv = tf.nn.conv2d(hidden, layer6_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer6_biases)
-        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+        conv = tf.nn.conv2d(hidden, layerx_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layerx_biases)
+        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
         #Dropout -> Fully Connected -> Dropout -> Fully Connected
         drop = tf.nn.dropout(pool_1, keep_prob)
