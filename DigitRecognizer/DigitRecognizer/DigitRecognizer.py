@@ -81,10 +81,10 @@ def ConvNet():
       layer8_biases = tf.get_variable("layer8_biases", [depth * 16], initializer=tf.contrib.layers.xavier_initializer())
       layer9_weights = tf.get_variable("layer9_weights", [patch_size_3, patch_size_3, depth * 16, depth * 16], initializer=tf.contrib.layers.xavier_initializer())
       layer9_biases = tf.get_variable("layer9_biases", [depth * 16], initializer=tf.contrib.layers.xavier_initializer())
-      layer10_weights = tf.get_variable("layer10_weights", [patch_size_3, patch_size_3, depth * 16, depth * 32], initializer=tf.contrib.layers.xavier_initializer())
-      layer10_biases = tf.get_variable("layer10_biases", [depth * 32], initializer=tf.contrib.layers.xavier_initializer())
+      layer10_weights = tf.get_variable("layer10_weights", [patch_size_3, patch_size_3, depth * 16, depth * 24], initializer=tf.contrib.layers.xavier_initializer())
+      layer10_biases = tf.get_variable("layer10_biases", [depth * 24], initializer=tf.contrib.layers.xavier_initializer())
 
-      fc = 2048
+      fc = 1536
       layer11_weights = tf.get_variable("layer11_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
       layer11_biases = tf.get_variable("layer11_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
 
