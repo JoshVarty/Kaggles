@@ -9,8 +9,8 @@ num_channels = 1    #Not RGB, just single values for each pixel
 num_labels = 10     #0-9
 
 patch_size_3 = 3
-patch_size_5 = 5
-patch_size_7 = 7
+patch_size_5 = 3
+patch_size_7 = 3
 batch_size = 128
 
 depth = 16
@@ -185,6 +185,10 @@ def LoadAndRun():
       layer5_biases = tf.get_variable("layer5_biases",[depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer6_weights = tf.get_variable("layer6_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer6_biases = tf.get_variable("layer6_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+
+      layerx_weights = tf.get_variable("layerx_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layerx_biases = tf.get_variable("layerx_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+
       fc = 2048
       layer7_weights = tf.get_variable("layer7_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
       layer7_biases = tf.get_variable("layer7_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
@@ -216,6 +220,10 @@ def LoadAndRun():
 
         conv = tf.nn.conv2d(hidden, layer6_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer6_biases)
+        
+        conv = tf.nn.conv2d(hidden, layerx_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layerx_biases)
+
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
         #Dropout -> Fully Connected -> Dropout -> Fully Connected
@@ -248,4 +256,4 @@ def LoadAndRun():
 
 
 
-LoadAndRun()
+ConvNet()
