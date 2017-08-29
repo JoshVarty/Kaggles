@@ -79,15 +79,22 @@ def ConvNet():
       layer8_biases = tf.get_variable("layer8_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer9_weights = tf.get_variable("layer9_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
       layer9_biases = tf.get_variable("layer9_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
-      layer10_weights = tf.get_variable("layer10_weights", [patch_size_3, patch_size_3, depth * 8, depth * 16], initializer=tf.contrib.layers.xavier_initializer())
-      layer10_biases = tf.get_variable("layer10_biases", [depth * 16], initializer=tf.contrib.layers.xavier_initializer())
+      layer10_weights = tf.get_variable("layer10_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer10_biases = tf.get_variable("layer10_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      
+      layer11_weights = tf.get_variable("layer11_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer11_biases = tf.get_variable("layer11_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer12_weights = tf.get_variable("layer12_weights", [patch_size_3, patch_size_3, depth * 8, depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer12_biases = tf.get_variable("layer12_biases", [depth * 8], initializer=tf.contrib.layers.xavier_initializer())
+      layer13_weights = tf.get_variable("layer13_weights", [patch_size_3, patch_size_3, depth * 8, depth * 32], initializer=tf.contrib.layers.xavier_initializer())
+      layer13_biases = tf.get_variable("layer13_biases", [depth * 32], initializer=tf.contrib.layers.xavier_initializer())
 
-      fc = 4096
-      layer11_weights = tf.get_variable("layer11_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
-      layer11_biases = tf.get_variable("layer11_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
+      fc = 2048
+      layer14_weights = tf.get_variable("layer14_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
+      layer14_biases = tf.get_variable("layer14_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
 
-      layer12_weights = tf.get_variable("layer12_weights", [fc, num_labels], initializer=tf.contrib.layers.xavier_initializer())
-      layer12_biases = tf.get_variable("layer12_biases", [num_labels], initializer=tf.contrib.layers.xavier_initializer())
+      layer15_weights = tf.get_variable("layer15_weights", [fc, num_labels], initializer=tf.contrib.layers.xavier_initializer())
+      layer15_biases = tf.get_variable("layer15_biases", [num_labels], initializer=tf.contrib.layers.xavier_initializer())
 
       # Model
       def model(data, keep_prob):
@@ -122,14 +129,23 @@ def ConvNet():
         conv = tf.nn.conv2d(hidden, layer10_weights, [1, 1, 1, 1], padding='SAME')
         hidden = tf.nn.relu(conv + layer10_biases)
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        
+        #Conv->Relu->Conv-Relu->Conv->Relu->Pool
+        conv = tf.nn.conv2d(pool_1, layer11_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layer11_biases)
+        conv = tf.nn.conv2d(hidden, layer12_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layer12_biases)
+        conv = tf.nn.conv2d(hidden, layer13_weights, [1, 1, 1, 1], padding='SAME')
+        hidden = tf.nn.relu(conv + layer13_biases)
+        pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
         #Dropout -> Fully Connected -> Dropout -> Fully Connected
         drop = tf.nn.dropout(pool_1, keep_prob)
         shape = drop.get_shape().as_list()
         reshape = tf.reshape(drop, [shape[0], shape[1] * shape[2] * shape[3]])
-        hidden = tf.matmul(reshape, layer11_weights) + layer11_biases 
+        hidden = tf.matmul(reshape, layer14_weights) + layer14_biases 
         drop = tf.nn.dropout(hidden, keep_prob)
-        return tf.matmul(drop, layer12_weights) + layer12_biases 
+        return tf.matmul(drop, layer15_weights) + layer15_biases 
 
       def accuracy(predictions, labels):
         return 100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1)) / predictions.shape[0]
