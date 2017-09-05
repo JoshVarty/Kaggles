@@ -16,7 +16,11 @@ batch_size = 128
 depth = 16
 num_hidden = 64
 
-model_save_path = "model/model.ckpt" 
+model_save_path1 = "model/model.ckpt" 
+model_save_path2 = "model/model2.ckpt" 
+model_save_path3 = "model/model3.ckpt" 
+model_save_path4 = "model/model4.ckpt" 
+model_save_path5 = "model/model5.ckpt" 
 
 
 #Load data  
@@ -53,8 +57,7 @@ train_images, train_labels = reformat(train_images.as_matrix(), train_labels.as_
 test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matrix())
 
 
-
-def ConvNet():
+def ConvNet(model_save_path):
 
     graph = tf.Graph()
     with graph.as_default():
@@ -231,23 +234,71 @@ def LoadAndRun():
 
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
+      results1 = []
+      results2 = []
+      results3 = []
+      results4 = []
+      results5 = []
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
         saver.restore(session, model_save_path)
-        print("Restored")
+        print("Restored model 1")
 
         x = test_prediction.eval();
-        results = np.argmax(x, 1)
-        print(results)
-        with open("results/results.csv", 'w') as file:
-            file.write("ImageId,Label\n")
-            for idx, prediction in enumerate(results):
-                file.write(str(idx + 1))
-                file.write(",")
-                file.write(str(prediction))
-                file.write("\n")
+        results1 = np.argmax(x, 1)
+        print(results1)
+
+      with tf.Session(graph=graph) as session:
+        saver = tf.train.Saver()
+        saver.restore(session, model_save_path)
+        print("Restored model 2")
+
+        x = test_prediction.eval();
+        results2 = np.argmax(x, 1)
+        print(results2)
+            
+      with tf.Session(graph=graph) as session:
+        saver = tf.train.Saver()
+        saver.restore(session, model_save_path)
+        print("Restored model 3")
+
+        x = test_prediction.eval();
+        results3 = np.argmax(x, 1)
+        print(results3)
+
+      with tf.Session(graph=graph) as session:
+        saver = tf.train.Saver()
+        saver.restore(session, model_save_path)
+        print("Restored model 4")
+
+        x = test_prediction.eval();
+        results4 = np.argmax(x, 1)
+        print(results4)
+
+      with tf.Session(graph=graph) as session:
+        saver = tf.train.Saver()
+        saver.restore(session, model_save_path)
+        print("Restored model 5")
+
+        x = test_prediction.eval();
+        results5 = np.argmax(x, 1)
+        print(results5)
 
 
 
-ConvNet()   
+    with open("results/results.csv", 'w') as file:
+        file.write("ImageId,Label\n")
+        for idx, prediction in enumerate(results):
+            file.write(str(idx + 1))
+            file.write(",")
+            file.write(str(prediction))
+            file.write("\n")
+
+
+
+ConvNet(model_save_path1)   
+ConvNet(model_save_path2)   
+ConvNet(model_save_path3)   
+ConvNet(model_save_path4)   
+ConvNet(model_save_path5)   
