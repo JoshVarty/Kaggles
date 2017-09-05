@@ -286,10 +286,25 @@ def LoadAndRun():
         print(results5)
 
 
-
     with open("results/results.csv", 'w') as file:
         file.write("ImageId,Label\n")
-        for idx, prediction in enumerate(results):
+        for idx, item in enumerate(results):
+            pred1 = results1[idx]
+            pred2 = results2[idx]
+            pred3 = results3[idx]
+            pred4 = results4[idx]
+            pred5 = results5[idx]
+
+            nums = np.zeros(10)
+            
+            nums[pred1] = nums[pred1] + 1 
+            nums[pred2] = nums[pred2] + 1 
+            nums[pred3] = nums[pred3] + 1 
+            nums[pred4] = nums[pred4] + 1 
+            nums[pred5] = nums[pred5] + 1 
+
+            prediction = np.argmax(nums)
+
             file.write(str(idx + 1))
             file.write(",")
             file.write(str(prediction))
