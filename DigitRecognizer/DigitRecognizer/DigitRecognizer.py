@@ -242,7 +242,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
+        saver.restore(session, model_save_path1)
         print("Restored model 1")
 
         x = test_prediction.eval();
@@ -251,7 +251,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
+        saver.restore(session, model_save_path2)
         print("Restored model 2")
 
         x = test_prediction.eval();
@@ -260,7 +260,7 @@ def LoadAndRun():
             
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
+        saver.restore(session, model_save_path3)
         print("Restored model 3")
 
         x = test_prediction.eval();
@@ -269,7 +269,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
+        saver.restore(session, model_save_path4)
         print("Restored model 4")
 
         x = test_prediction.eval();
@@ -278,7 +278,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
+        saver.restore(session, model_save_path5)
         print("Restored model 5")
 
         x = test_prediction.eval();
@@ -286,9 +286,12 @@ def LoadAndRun():
         print(results5)
 
 
+    
+
+
     with open("results/results.csv", 'w') as file:
         file.write("ImageId,Label\n")
-        for idx, item in enumerate(results):
+        for idx in range(len(results1)):
             pred1 = results1[idx]
             pred2 = results2[idx]
             pred3 = results3[idx]
@@ -312,8 +315,4 @@ def LoadAndRun():
 
 
 
-ConvNet(model_save_path1)   
-ConvNet(model_save_path2)   
-ConvNet(model_save_path3)   
-ConvNet(model_save_path4)   
-ConvNet(model_save_path5)   
+LoadAndRun()
