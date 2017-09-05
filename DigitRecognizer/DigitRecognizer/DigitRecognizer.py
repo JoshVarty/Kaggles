@@ -16,6 +16,8 @@ batch_size = 128
 depth = 16
 num_hidden = 64
 
+model_save_path = "model/model.ckpt" 
+
 
 #Load data  
 data = pd.read_csv("../input/train.csv");
@@ -26,7 +28,7 @@ test_data = test_data.as_matrix().reshape((-1, image_size, image_size, num_chann
 #Partition into train/test sets
 images = data.iloc[0:5000,1:]
 labels = data.iloc[0:5000,:1]
-train_images, test_images, train_labels, test_labels = train_test_split(images, labels, train_size=0.8, random_state=0)
+train_images, test_images, train_labels, test_labels = train_test_split(images, labels, train_size=0.99, random_state=0)
 
 #Cleanup
 del data
@@ -161,7 +163,7 @@ def ConvNet():
       
       #Save session
       saver = tf.train.Saver()
-      save_path = saver.save(session, "model/model.ckpt")
+      save_path = saver.save(session, model_save_path)
 
 
 
@@ -232,7 +234,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, "model/model.ckpt")
+        saver.restore(session, model_save_path)
         print("Restored")
 
         x = test_prediction.eval();
@@ -248,4 +250,4 @@ def LoadAndRun():
 
 
 
-LoadAndRun()
+ConvNet()   
