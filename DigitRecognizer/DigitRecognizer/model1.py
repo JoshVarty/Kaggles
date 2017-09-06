@@ -48,7 +48,7 @@ test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matr
 
 
 
-def ConvNet():
+def TrainConvNet(model_save_path):
 
     graph = tf.Graph()
     with graph.as_default():
@@ -192,11 +192,11 @@ def ConvNet():
       
       #Save session
       saver = tf.train.Saver()
-      save_path = saver.save(session, "model/model.ckpt")
+      save_path = saver.save(session, model_save_path)
 
 
 
-def LoadAndRun():
+def LoadAndRun(model_save_path):
     tf.reset_default_graph()
     graph = tf.Graph()
 
@@ -271,7 +271,7 @@ def LoadAndRun():
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
-        saver.restore(session, "model/model.ckpt")
+        saver.restore(session, model_save_path)
         print("Restored")
 
         x = test_prediction.eval();
