@@ -284,3 +284,4 @@ def LoadAndRun():
                 file.write(",")
                 file.write(str(prediction))
                 file.write("\n")
+

@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b047a5b7-44ba-4bfe-a974-3701c5e4c3df</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Model1.py</StartupFile>
+    <StartupFile>model1.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,8 +22,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Model1.py" />
+    <Compile Include="driver.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model1.py" />
     <Compile Include="mnist_deep.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model2.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
