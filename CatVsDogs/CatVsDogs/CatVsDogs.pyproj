@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0313422e-4280-40a0-958d-47ebcd8815df</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>model1.py</StartupFile>
+    <StartupFile>driver.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="driver.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="model1.py" />
   </ItemGroup>
   <ItemGroup>
