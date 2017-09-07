@@ -13,6 +13,8 @@ TEST_DIR = '../input/test/'
 image_size = 96; # 150x150.  Also, 224, 96, 64, and 32 are also common
 num_channels = 3
 pixel_depth = 255.0  # Number of levels per pixel.
+num_labels = 2
+
 
 # for small-sample testing
 OUTFILE = '/Users/pal004/Desktop/CatsVsDogsRedux/CatsAndDogs_pal15Jan2017_SmallerTest.npsave.bin'
@@ -83,11 +85,24 @@ train_labels  = train_labels_rand[VALID_SIZE:VALID_SIZE+TRAINING_SIZE]
 print ('Training', train_dataset.shape, train_labels.shape)
 print ('Validation', valid_dataset.shape, valid_labels.shape)
 
+def reformat(dataset, labels):
+  dataset = dataset.reshape(
+    (-1, image_size, image_size, num_channels)).astype(np.float32)
+  labels = (labels=='cats').astype(np.float32); # set dogs to 0 and cats to 1
+  labels = (np.arange(num_labels) == labels[:,None]).astype(np.float32)
+  return dataset, labels
+
+train_dataset, train_labels = reformat(train_dataset, train_labels)
+valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
+#test_dataset, test_labels = reformat(test_dataset, test_labels)
+print ('Training set', train_dataset.shape, train_labels.shape)
+print ('Validation set', valid_dataset.shape, valid_labels.shape)
+#print ('Test set', test_dataset.shape, test_labels.shape)
+
 
 def ConvNet(model_save_path):
 
     batch_size = 16
-    num_labels = 2
     patch_size_3 = 3
     depth = 16
     graph = tf.Graph()
@@ -111,7 +126,7 @@ def ConvNet(model_save_path):
       layer6_weights = tf.get_variable("layer6_weights", [patch_size_3, patch_size_3, depth * 4, depth * 4], initializer=tf.contrib.layers.xavier_initializer())
       layer6_biases = tf.get_variable("layer6_biases", [depth * 4], initializer=tf.contrib.layers.xavier_initializer())
       
-      fc = 50176
+      fc = 9216
       layer7_weights = tf.get_variable("layer7_weights", [fc, fc], initializer=tf.contrib.layers.xavier_initializer())
       layer7_biases = tf.get_variable("layer7_biases", [fc], initializer=tf.contrib.layers.xavier_initializer())
       
@@ -178,7 +193,7 @@ def ConvNet(model_save_path):
       print('Initialized')
       for step in range(num_steps):
         offset = (step * batch_size) % (train_labels.shape[0] - batch_size)
-        batch_data = train_images[offset:(offset + batch_size), :, :, :]
+        batch_data = train_dataset[offset:(offset + batch_size), :, :, :]
         batch_labels = train_labels[offset:(offset + batch_size), :]
         feed_dict = {tf_train_dataset : batch_data, tf_train_labels : batch_labels}
 
