@@ -194,10 +194,8 @@ def TrainConvNet(model_save_path):
       saver = tf.train.Saver()
       save_path = saver.save(session, model_save_path)
 
-def chunks(l, n):
-    """Yield successive n-sized chunks from l."""
-    for i in range(0, len(l), n):
-        yield l[i:i + n]
+def chunks(lst,n):
+    return [ lst[i::n] for i in xrange(n) ]
 
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
