@@ -35,15 +35,13 @@ results7 = model2.LoadAndRun(model_save_path7)
 with open("results/results.csv", 'w') as file:
     file.write("ImageId,Label\n")
     for idx in range(len(results1)):
-         pred1 = results1[idx]
-         print(pred1)
-         pred2 = results2[idx]
-         print(pred2)
-         pred3 = results3[idx]
-         pred4 = results4[idx]
-         pred5 = results5[idx]
-         pred6 = results6[idx]
-         pred7 = results7[idx]
+         pred1 = int(results1[idx])
+         pred2 = int(results2[idx])
+         pred3 = int(results3[idx])
+         pred4 = int(results4[idx])
+         pred5 = int(results5[idx])
+         pred6 = int(results6[idx])
+         pred7 = int(results7[idx])
 
          nums = np.zeros(10)
          
