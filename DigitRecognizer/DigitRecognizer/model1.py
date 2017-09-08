@@ -309,7 +309,7 @@ def LoadAndRun(model_save_path):
             batch_data = test_images[offset:(offset + batch_size), :, :, :]
             feed_dict = {tf_test_dataset : batch_data}
 
-          predictions = session.run([train_prediction], feed_dict=feed_dict)
+          predictions = session.run([test_prediction], feed_dict=feed_dict)
 
       with tf.Session(graph=graph) as session:
 
