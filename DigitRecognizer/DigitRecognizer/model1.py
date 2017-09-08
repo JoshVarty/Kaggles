@@ -200,10 +200,12 @@ def chunks(lst,n):
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
     graph = tf.Graph()
+    num_steps = 8
+    batch_size = int(len(test_images) / num_steps)
 
     with graph.as_default():
       # Input data.
-      tf_test_dataset = tf.placeholder(tf.float32, shape=(None, image_size, image_size, num_channels))
+      tf_test_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
@@ -298,8 +300,7 @@ def LoadAndRun(model_save_path):
 
 
       with tf.Session(graph=graph) as session:
-          num_steps = 8
-          batch_size = int(len(test_images) / num_steps)
+         
           saver = tf.train.Saver()
           saver.restore(session, model_save_path)
           print("Restored")
