@@ -299,7 +299,7 @@ def LoadAndRun(model_save_path):
 
       with tf.Session(graph=graph) as session:
           num_steps = 8
-          batch_size = len(test_images) / num_steps
+          batch_size = int(len(test_images) / num_steps)
           saver = tf.train.Saver()
           saver.restore(session, model_save_path)
           print("Restored")
