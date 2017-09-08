@@ -194,7 +194,10 @@ def TrainConvNet(model_save_path):
       saver = tf.train.Saver()
       save_path = saver.save(session, model_save_path)
 
-
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
@@ -206,8 +209,11 @@ def LoadAndRun(model_save_path):
       tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
       length = len(test_images)
 
-      tf_test_dataset1 = tf.constant(test_images[0:int(length/2)], dtype=tf.float32)
-      tf_test_dataset2 = tf.constant(test_images[int(length/2):length], dtype=tf.float32)
+      test_data_chunks = list(chunks(test_images, 4))
+      tf_test_dataset1 = tf.constant(test_data_chunks[0], dtype=tf.float32)
+      tf_test_dataset2 = tf.constant(test_data_chunks[1], dtype=tf.float32)
+      tf_test_dataset3 = tf.constant(test_data_chunks[2], dtype=tf.float32)
+      tf_test_dataset4 = tf.constant(test_data_chunks[3], dtype=tf.float32)
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
@@ -301,7 +307,8 @@ def LoadAndRun(model_save_path):
 
       test_predictions1 = tf.nn.softmax(model(tf_test_dataset1, 1.0))
       test_predictions2 = tf.nn.softmax(model(tf_test_dataset2, 1.0))
-
+      test_predictions3 = tf.nn.softmax(model(tf_test_dataset3, 1.0))
+      test_predictions4 = tf.nn.softmax(model(tf_test_dataset4, 1.0))
 
       with tf.Session(graph=graph) as session:
         saver = tf.train.Saver()
@@ -311,6 +318,10 @@ def LoadAndRun(model_save_path):
         logits1 = test_predictions1.eval();
         results1 = np.argmax(logits, 1)
         logits2 = test_predictions2.eval();
-        results2 = np.argmax(logits, 1)
+        results2 = np.argmax(logits2, 1)
+        logits3 = test_predictions3.eval();
+        results3 = np.argmax(logits3, 1)
+        logits4 = test_predictions4.eval();
+        results4 = np.argmax(logits4, 1)
 
-        return resultsa + results2
+        return results1 + results2 + results3 + results4
