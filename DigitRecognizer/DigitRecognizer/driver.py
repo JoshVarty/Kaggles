@@ -1,5 +1,6 @@
 import model1
 import model2
+import numpy as np
 
 model_save_path1 = "model/model.ckpt" 
 model_save_path2 = "model/model2.ckpt" 
