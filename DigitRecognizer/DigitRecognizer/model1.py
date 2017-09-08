@@ -195,7 +195,7 @@ def TrainConvNet(model_save_path):
       save_path = saver.save(session, model_save_path)
 
 def chunks(lst,n):
-    return [ lst[i::n] for i in xrange(n) ]
+    return [ lst[i::n] for i in range(n) ]
 
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
