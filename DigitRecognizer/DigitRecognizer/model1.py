@@ -294,7 +294,7 @@ def LoadAndRun(model_save_path):
         drop = tf.nn.dropout(hidden, keep_prob)
         return tf.matmul(drop, layer15_weights) + layer15_biases 
 
-        test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
+      test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
 
       with tf.Session(graph=graph) as session:
@@ -310,25 +310,5 @@ def LoadAndRun(model_save_path):
             feed_dict = {tf_test_dataset : batch_data}
 
           predictions = session.run([test_prediction], feed_dict=feed_dict)
+          print(predictions)
 
-      with tf.Session(graph=graph) as session:
-
-        logits1 = test_predictions1.eval();
-        results1 = np.argmax(logits1, 1)
-        logits2 = test_predictions2.eval();
-        results2 = np.argmax(logits2, 1)
-        logits3 = test_predictions3.eval();
-        results3 = np.argmax(logits3, 1)
-        logits4 = test_predictions4.eval();
-        results4 = np.argmax(logits4, 1)
-
-        logits5 = test_predictions5.eval();
-        results5 = np.argmax(logits5, 1)
-        logits6 = test_predictions6.eval();
-        results6 = np.argmax(logits6, 1)
-        logits7 = test_predictions7.eval();
-        results7 = np.argmax(logits7, 1)
-        logits8 = test_predictions8.eval();
-        results8 = np.argmax(logits8, 1)
-
-        return results1 + results2 + results3 + results4 + results5 + results6 + results7 + results8
