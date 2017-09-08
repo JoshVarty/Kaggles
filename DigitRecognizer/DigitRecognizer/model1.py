@@ -298,7 +298,7 @@ def LoadAndRun(model_save_path):
 
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
-      results = []
+      results = np.array([])
       with tf.Session(graph=graph) as session:
          
           saver = tf.train.Saver()
@@ -311,10 +311,10 @@ def LoadAndRun(model_save_path):
             feed_dict = {tf_test_dataset : batch_data}
 
           predictions = session.run([test_prediction], feed_dict=feed_dict)
-          batch_results = np.argmax(predictions, 1)
-          results = results + batch_results 
+          batch_results = np.argmax(predictions, 1)[0]
 
-          print(predictions)
+          results = np.concatenate((results, batch_results), axis=0)
+
 
       return results
 
