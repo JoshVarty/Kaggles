@@ -203,20 +203,7 @@ def LoadAndRun(model_save_path):
 
     with graph.as_default():
       # Input data.
-      tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
-      length = len(test_images)
-
-      test_data_chunks = list(chunks(test_images, 8))
-      tf_test_dataset1 = tf.constant(test_data_chunks[0], dtype=tf.float32)
-      tf_test_dataset2 = tf.constant(test_data_chunks[1], dtype=tf.float32)
-      tf_test_dataset3 = tf.constant(test_data_chunks[2], dtype=tf.float32)
-      tf_test_dataset4 = tf.constant(test_data_chunks[3], dtype=tf.float32)
-
-      tf_test_dataset5 = tf.constant(test_data_chunks[4], dtype=tf.float32)
-      tf_test_dataset6 = tf.constant(test_data_chunks[5], dtype=tf.float32)
-      tf_test_dataset7 = tf.constant(test_data_chunks[6], dtype=tf.float32)
-      tf_test_dataset8 = tf.constant(test_data_chunks[7], dtype=tf.float32)
+      tf_test_dataset = tf.placeholder(tf.float32, shape=(None, image_size, image_size, num_channels))
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
@@ -307,20 +294,24 @@ def LoadAndRun(model_save_path):
         drop = tf.nn.dropout(hidden, keep_prob)
         return tf.matmul(drop, layer15_weights) + layer15_biases 
 
+        test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
-      test_predictions1 = tf.nn.softmax(model(tf_test_dataset1, 1.0))
-      test_predictions2 = tf.nn.softmax(model(tf_test_dataset2, 1.0))
-      test_predictions3 = tf.nn.softmax(model(tf_test_dataset3, 1.0))
-      test_predictions4 = tf.nn.softmax(model(tf_test_dataset4, 1.0))
-      test_predictions5 = tf.nn.softmax(model(tf_test_dataset5, 1.0))
-      test_predictions6 = tf.nn.softmax(model(tf_test_dataset6, 1.0))
-      test_predictions7 = tf.nn.softmax(model(tf_test_dataset7, 1.0))
-      test_predictions8 = tf.nn.softmax(model(tf_test_dataset8, 1.0))
 
       with tf.Session(graph=graph) as session:
-        saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
-        print("Restored")
+          num_steps = 8
+          batch_size = len(test_images) / num_steps
+          saver = tf.train.Saver()
+          saver.restore(session, model_save_path)
+          print("Restored")
+
+          for step in range(num_steps):
+            offset = (step * batch_size) % (test_images.shape[0] - batch_size)
+            batch_data = test_images[offset:(offset + batch_size), :, :, :]
+            feed_dict = {tf_test_dataset : batch_data}
+
+          predictions = session.run([train_prediction], feed_dict=feed_dict)
+
+      with tf.Session(graph=graph) as session:
 
         logits1 = test_predictions1.eval();
         results1 = np.argmax(logits1, 1)
