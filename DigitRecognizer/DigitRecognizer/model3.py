@@ -50,7 +50,7 @@ train_images, train_labels = reformat(train_images.as_matrix(), train_labels.as_
 test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matrix())
 
 
-def ConvNet(model_save_path):
+def TrainConvNet(model_save_path):
 
     graph = tf.Graph()
     with graph.as_default():
