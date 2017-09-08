@@ -32,6 +32,9 @@
     <Compile Include="model2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="model3.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|VisualStudio|Josh" />
