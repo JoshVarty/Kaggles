@@ -199,11 +199,13 @@ def TrainConvNet(model_save_path):
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
     graph = tf.Graph()
+    num_steps = 20
+    batch_size = int(len(test_images) / num_steps)
 
     with graph.as_default():
      
       # Input data.
-      tf_test_dataset = tf.constant(test_data, dtype=tf.float32)
+      tf_test_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
@@ -298,10 +300,21 @@ def LoadAndRun(model_save_path):
 
 
       with tf.Session(graph=graph) as session:
-        saver = tf.train.Saver()
-        saver.restore(session, model_save_path)
-        print("Restored")
+         
+          saver = tf.train.Saver()
+          saver.restore(session, model_save_path)
+          print("Restored")
 
-        logits = test_prediction.eval();
-        results = np.argmax(logits, 1)
-        return results
+          for step in range(num_steps):
+            offset = (step * batch_size) % (test_data.shape[0] - batch_size)
+            batch_data = test_data[offset:(offset + batch_size), :, :, :]
+            feed_dict = {tf_test_dataset : batch_data}
+
+            predictions  = session.run([test_prediction], feed_dict=feed_dict)
+            predictions = predictions[0]
+            batch_results = np.argmax(predictions, 1)
+
+            results = np.concatenate((results, batch_results), axis=0)
+
+
+      return results
