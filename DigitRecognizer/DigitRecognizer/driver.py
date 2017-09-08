@@ -50,8 +50,8 @@ with open("results/results.csv", 'w') as file:
          nums[pred3] = nums[pred3] + 1 
          nums[pred4] = nums[pred4] + 1 
          nums[pred5] = nums[pred5] + 1 
-         nums[pred6] = nums[pred5] + 1 
-         nums[pred7] = nums[pred5] + 1 
+         nums[pred6] = nums[pred6] + 1 
+         nums[pred7] = nums[pred7] + 1 
 
          prediction = np.argmax(nums)
 
