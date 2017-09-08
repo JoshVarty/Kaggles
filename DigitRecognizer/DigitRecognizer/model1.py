@@ -204,7 +204,10 @@ def LoadAndRun(model_save_path):
       # Input data.
       tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
       tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
-      tf_test_dataset = tf.constant(test_images, dtype=tf.float32)
+      length = len(test_images)
+
+      tf_test_dataset1 = tf.constant(test_images[0:int(length/2)], dtype=tf.float32)
+      tf_test_dataset2 = tf.constant(test_images[int(length/2):length], dtype=tf.float32)
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
@@ -296,7 +299,8 @@ def LoadAndRun(model_save_path):
         return tf.matmul(drop, layer15_weights) + layer15_biases 
 
 
-      test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
+      test_predictions1 = tf.nn.softmax(model(tf_test_dataset1, 1.0))
+      test_predictions2 = tf.nn.softmax(model(tf_test_dataset2, 1.0))
 
 
       with tf.Session(graph=graph) as session:
@@ -304,6 +308,9 @@ def LoadAndRun(model_save_path):
         saver.restore(session, model_save_path)
         print("Restored")
 
-        logits = test_prediction.eval();
-        results = np.argmax(logits, 1)
-        return results
+        logits1 = test_prediction.eval();
+        results1 = np.argmax(logits, 1)
+        logits2 = test_prediction.eval();
+        results2 = np.argmax(logits, 1)
+
+        return resultsa + results2
