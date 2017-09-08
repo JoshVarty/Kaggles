@@ -310,10 +310,11 @@ def LoadAndRun(model_save_path):
             batch_data = test_images[offset:(offset + batch_size), :, :, :]
             feed_dict = {tf_test_dataset : batch_data}
 
-          predictions = session.run([test_prediction], feed_dict=feed_dict)
-          batch_results = np.argmax(predictions, 1)[0]
+            predictions  = session.run([test_prediction], feed_dict=feed_dict)
+            predictions = predictions[0]
+            batch_results = np.argmax(predictions, 1)
 
-          results = np.concatenate((results, batch_results), axis=0)
+            results = np.concatenate((results, batch_results), axis=0)
 
 
       return results
