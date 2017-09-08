@@ -306,8 +306,8 @@ def LoadAndRun(model_save_path):
           print("Restored")
 
           for step in range(num_steps):
-            offset = (step * batch_size) % (test_images.shape[0] - batch_size)
-            batch_data = test_images[offset:(offset + batch_size), :, :, :]
+            offset = (step * batch_size) % (test_data.shape[0] - batch_size)
+            batch_data = test_data[offset:(offset + batch_size), :, :, :]
             feed_dict = {tf_test_dataset : batch_data}
 
             predictions  = session.run([test_prediction], feed_dict=feed_dict)
