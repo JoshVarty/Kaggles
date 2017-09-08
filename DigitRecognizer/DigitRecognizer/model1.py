@@ -316,7 +316,7 @@ def LoadAndRun(model_save_path):
         print("Restored")
 
         logits1 = test_predictions1.eval();
-        results1 = np.argmax(logits, 1)
+        results1 = np.argmax(logits1, 1)
         logits2 = test_predictions2.eval();
         results2 = np.argmax(logits2, 1)
         logits3 = test_predictions3.eval();
