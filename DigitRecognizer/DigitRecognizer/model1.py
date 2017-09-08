@@ -308,9 +308,9 @@ def LoadAndRun(model_save_path):
         saver.restore(session, model_save_path)
         print("Restored")
 
-        logits1 = test_prediction.eval();
+        logits1 = test_predictions1.eval();
         results1 = np.argmax(logits, 1)
-        logits2 = test_prediction.eval();
+        logits2 = test_predictions2.eval();
         results2 = np.argmax(logits, 1)
 
         return resultsa + results2
