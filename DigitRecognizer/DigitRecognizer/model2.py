@@ -299,6 +299,7 @@ def LoadAndRun(model_save_path):
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
 
+      results = np.array([])
       with tf.Session(graph=graph) as session:
          
           saver = tf.train.Saver()
