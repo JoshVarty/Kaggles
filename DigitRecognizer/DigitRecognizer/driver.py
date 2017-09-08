@@ -36,7 +36,9 @@ with open("results/results.csv", 'w') as file:
     file.write("ImageId,Label\n")
     for idx in range(len(results1)):
          pred1 = results1[idx]
+         print(pred1)
          pred2 = results2[idx]
+         print(pred2)
          pred3 = results3[idx]
          pred4 = results4[idx]
          pred5 = results5[idx]
@@ -44,7 +46,7 @@ with open("results/results.csv", 'w') as file:
          pred7 = results7[idx]
 
          nums = np.zeros(10)
-        
+         
          nums[pred1] = nums[pred1] + 1 
          nums[pred2] = nums[pred2] + 1 
          nums[pred3] = nums[pred3] + 1 
