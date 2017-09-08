@@ -203,9 +203,7 @@ def LoadAndRun(model_save_path):
     with graph.as_default():
      
       # Input data.
-      tf_train_dataset = tf.placeholder(tf.float32, shape=(batch_size, image_size, image_size, num_channels))
-      tf_train_labels = tf.placeholder(tf.float32, shape=(batch_size, num_labels))
-      tf_test_dataset = tf.constant(test_images, dtype=tf.float32)
+      tf_test_dataset = tf.constant(test_data, dtype=tf.float32)
       
       layer1_weights = tf.get_variable("layer1_weights", [patch_size_3, patch_size_3, num_channels, depth], initializer=tf.contrib.layers.xavier_initializer())
       layer1_biases = tf.get_variable("layer1_biases",[depth], initializer=tf.contrib.layers.xavier_initializer())
