@@ -166,6 +166,8 @@ def TrainConvNet(model_save_path):
 def LoadAndRun(model_save_path):
     tf.reset_default_graph()
     graph = tf.Graph()
+    num_steps = 280
+    batch_size = int(len(test_data) / num_steps)
 
     with graph.as_default():
       # Input data.
