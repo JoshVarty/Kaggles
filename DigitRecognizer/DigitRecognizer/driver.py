@@ -24,6 +24,8 @@ model_save_path7 = "model/model7.ckpt"
 #model3.TrainConvNet(model_save_path6)
 #model3.TrainConvNet(model_save_path7)
 
+results6 = model3.LoadAndRun(model_save_path6)
+results7 = model3.LoadAndRun(model_save_path7)
 
 results1 = model1.LoadAndRun(model_save_path1)
 results2 = model1.LoadAndRun(model_save_path2)
@@ -31,9 +33,6 @@ results3 = model1.LoadAndRun(model_save_path3)
 
 results4 = model2.LoadAndRun(model_save_path4)
 results5 = model2.LoadAndRun(model_save_path5)
-
-results6 = model3.LoadAndRun(model_save_path6)
-results7 = model3.LoadAndRun(model_save_path7)
 
 
 with open("results/results.csv", 'w') as file:
