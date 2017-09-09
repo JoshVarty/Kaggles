@@ -216,26 +216,36 @@ def LoadAndRun():
         hidden = tf.nn.relu(conv + layer6_biases)
         pool_1 = tf.nn.max_pool(hidden, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+
         #Dropout -> Fully Connected -> Dropout -> Fully Connected
         drop = tf.nn.dropout(pool_1, keep_prob)
         shape = drop.get_shape().as_list()
         reshape = tf.reshape(drop, [shape[0], shape[1] * shape[2] * shape[3]])
         hidden = tf.matmul(reshape, layer7_weights) + layer7_biases 
         drop = tf.nn.dropout(hidden, keep_prob)
-        return tf.matmul(drop, layer8_weights) + layer8_biases 
+        return tf.matmul(drop, layer8_weights) + layer8_biases  
 
 
       test_prediction = tf.nn.softmax(model(tf_test_dataset, 1.0))
 
+      results = np.array([])
       with tf.Session(graph=graph) as session:
-        saver = tf.train.Saver()
-        saver.restore(session, model_save_path1)
-        print("Restored model 1")
+         
+          saver = tf.train.Saver()
+          saver.restore(session, model_save_path)
+          print("Restored")
 
-        x = test_prediction.eval();
-        results1 = np.argmax(x, 1)
-        print(results1)
+          for step in range(num_steps):
+            offset = (step * batch_size) % (test_data.shape[0] - batch_size)
+            batch_data = test_data[offset:(offset + batch_size), :, :, :]
+            feed_dict = {tf_test_dataset : batch_data}
 
-        return results1;
+            predictions  = session.run([test_prediction], feed_dict=feed_dict)
+            predictions = predictions[0]
+            batch_results = np.argmax(predictions, 1)
 
+            results = np.concatenate((results, batch_results), axis=0)
+
+
+      return results
       
