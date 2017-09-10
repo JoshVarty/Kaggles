@@ -20,8 +20,8 @@ test_data = test_data.as_matrix().reshape((-1, image_size, image_size, num_chann
 
 
 #Partition into train/test sets
-images = data.iloc[0:5000,1:]
-labels = data.iloc[0:5000,:1]
+images = data.iloc[:,1:]
+labels = data.iloc[:,:1]
 train_images, test_images, train_labels, test_labels = train_test_split(images, labels, train_size=0.99, random_state=0)
 
 #Cleanup
@@ -45,7 +45,6 @@ print("test_labels: ", test_labels.shape)
 #Convert to numpy arrays for tensorflow
 train_images, train_labels = reformat(train_images.as_matrix(), train_labels.as_matrix())
 test_images, test_labels = reformat(test_images.as_matrix(), test_labels.as_matrix())
-
 
 
 def TrainConvNet(model_save_path):

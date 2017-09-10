@@ -20,8 +20,8 @@ test_data = test_data.as_matrix().reshape((-1, image_size, image_size, num_chann
 
 
 #Partition into train/test sets
-images = data.iloc[0:5000,1:]
-labels = data.iloc[0:5000,:1]
+images = data.iloc[:,1:]
+labels = data.iloc[:,:1]
 train_images, test_images, train_labels, test_labels = train_test_split(images, labels, train_size=0.99, random_state=0)
 
 #Cleanup
