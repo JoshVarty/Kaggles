@@ -8,10 +8,11 @@ model_save_path2 = "model/model2.ckpt"
 model_save_path3 = "model/model3.ckpt" 
 
 ###Three of the first model
-model1.TrainConvNet(model_save_path1)
+#model1.TrainConvNet(model_save_path1)
 #model2.TrainConvNet(model_save_path2)
 #model3.TrainConvNet(model_save_path3)
 
+results1 = model1.LoadAndRun(model_save_path1)
 
 with open("results/results.csv", 'w') as file:
     file.write("ImageId,Label\n")
