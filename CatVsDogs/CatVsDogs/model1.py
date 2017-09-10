@@ -202,13 +202,13 @@ def ConvNet(model_save_path):
           writer.add_summary(m, step)
           print('Minibatch loss at step %d: %f' % (step, l))
           print('Minibatch accuracy: %.1f%%' % accuracy(predictions, batch_labels))
-          print('Test accuracy: %.1f%%' % accuracy(valid_prediction.eval(), test_labels))
+          print('Valid accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
         else:
           #Don't pass in merged dictionary for better performance
           _, l, predictions = session.run([optimizer, loss, train_prediction], feed_dict=feed_dict)
 
 
-      print('Test accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
+      print('Valid accuracy: %.1f%%' % accuracy(valid_prediction.eval(), valid_labels))
       
       #Save session
       saver = tf.train.Saver()
