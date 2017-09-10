@@ -12,8 +12,8 @@ model2.TrainConvNet(model_save_path2)
 model3.TrainConvNet(model_save_path3)
 
 results1 = model1.LoadAndRun(model_save_path1)
-results2 = model1.LoadAndRun(model_save_path2)
-results3 = model1.LoadAndRun(model_save_path3)
+results2 = model2.LoadAndRun(model_save_path2)
+results3 = model3.LoadAndRun(model_save_path3)
 
 with open("results/results.csv", 'w') as file:
     file.write("ImageId,Label\n")
