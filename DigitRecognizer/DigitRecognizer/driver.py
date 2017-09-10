@@ -29,7 +29,7 @@ results7 = model3.LoadAndRun(model_save_path7)
 
 results1 = model1.LoadAndRun(model_save_path1)
 results2 = model1.LoadAndRun(model_save_path2)
-results3 = model1.LoadAndRun(model_save_path3)
+#results3 = model1.LoadAndRun(model_save_path3)
 
 results4 = model2.LoadAndRun(model_save_path4)
 results5 = model2.LoadAndRun(model_save_path5)
@@ -40,7 +40,7 @@ with open("results/results.csv", 'w') as file:
     for idx in range(len(results1)):
          pred1 = int(results1[idx])
          pred2 = int(results2[idx])
-         pred3 = int(results3[idx])
+         #pred3 = int(results3[idx])
          pred4 = int(results4[idx])
          pred5 = int(results5[idx])
          pred6 = int(results6[idx])
@@ -50,7 +50,7 @@ with open("results/results.csv", 'w') as file:
          
          nums[pred1] = nums[pred1] + 1 
          nums[pred2] = nums[pred2] + 1 
-         nums[pred3] = nums[pred3] + 1 
+         #nums[pred3] = nums[pred3] + 1 
          nums[pred4] = nums[pred4] + 1 
          nums[pred5] = nums[pred5] + 1 
          nums[pred6] = nums[pred6] + 1 
