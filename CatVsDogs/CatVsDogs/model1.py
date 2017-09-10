@@ -18,9 +18,9 @@ num_labels = 2
 
 # for small-sample testing
 OUTFILE = '/Users/pal004/Desktop/CatsVsDogsRedux/CatsAndDogs_pal15Jan2017_SmallerTest.npsave.bin'
-TRAINING_AND_VALIDATION_SIZE_DOGS = 1000 
-TRAINING_AND_VALIDATION_SIZE_CATS = 1000 
-TRAINING_AND_VALIDATION_SIZE_ALL  = 2000
+TRAINING_AND_VALIDATION_SIZE_DOGS = 10000 
+TRAINING_AND_VALIDATION_SIZE_CATS = 10000 
+TRAINING_AND_VALIDATION_SIZE_ALL  = TRAINING_AND_VALIDATION_SIZE_CATS + TRAINING_AND_VALIDATION_SIZE_DOGS
 TRAINING_SIZE = 1600  # TRAINING_SIZE + VALID_SIZE must equal TRAINING_AND_VALIDATION_SIZE_ALL
 VALID_SIZE = 400
 TEST_SIZE_ALL = 500
@@ -34,7 +34,6 @@ train_cats =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'cat' in i]
 
 train_images = train_dogs[:TRAINING_AND_VALIDATION_SIZE_DOGS] + train_cats[:TRAINING_AND_VALIDATION_SIZE_CATS]
 train_labels = np.array ((['dogs'] * TRAINING_AND_VALIDATION_SIZE_DOGS) + (['cats'] * TRAINING_AND_VALIDATION_SIZE_CATS))
-
 
 # resizes to image_size/image_size while keeping aspect ratio the same.  pads on right/bottom as appropriate 
 def read_image(file_path):
