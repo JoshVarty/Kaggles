@@ -32,7 +32,7 @@ train_images = [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR)]
 train_dogs =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'dog' in i]
 train_cats =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'cat' in i]
 
-train_images = train_dogs[:TRAINING_AND_VALIDATION_SIZE_DOGS] + train_cats[:TRAINING_AND_VALIDATION_SIZE_CATS]
+train_images = train_dogs + train_cats
 train_labels = np.array ((['dogs'] * TRAINING_AND_VALIDATION_SIZE_DOGS) + (['cats'] * TRAINING_AND_VALIDATION_SIZE_CATS))
 
 # resizes to image_size/image_size while keeping aspect ratio the same.  pads on right/bottom as appropriate 
