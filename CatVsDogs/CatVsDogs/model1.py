@@ -237,10 +237,13 @@ def LoadAndRun(model_save_path):
     
     test_images =  [TEST_DIR+i for i in os.listdir(TEST_DIR)]
     test_data = prep_data(test_images)
+    
+    print("TEST IMAGES: ", len(test_images))
+    print("TEST DATA: ", len(test_data))
 
     tf.reset_default_graph()
     graph = tf.Graph()
-    num_steps = 280
+    num_steps = 125
     batch_size = int(len(test_data) / num_steps)
 
     with graph.as_default():
