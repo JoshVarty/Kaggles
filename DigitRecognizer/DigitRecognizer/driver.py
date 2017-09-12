@@ -16,7 +16,7 @@ results2 = model2.LoadAndRun(model_save_path2)
 results3 = model3.LoadAndRun(model_save_path3)
 
 with open("results/results.csv", 'w') as file:
-    file.write("ImageId,Label\n")
+    file.write("id,label\n")
     for idx in range(len(results1)):
          pred1 = int(results1[idx])
          pred2 = int(results2[idx])
