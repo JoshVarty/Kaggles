@@ -17,28 +17,11 @@ depth = 32
 
 
 
-# for small-sample testing
-OUTFILE = '/Users/pal004/Desktop/CatsVsDogsRedux/CatsAndDogs_pal15Jan2017_SmallerTest.npsave.bin'
-TRAINING_AND_VALIDATION_SIZE_DOGS = 12500
-TRAINING_AND_VALIDATION_SIZE_CATS = 12500 
-TRAINING_AND_VALIDATION_SIZE_ALL  = TRAINING_AND_VALIDATION_SIZE_CATS + TRAINING_AND_VALIDATION_SIZE_DOGS
-TRAINING_SIZE = TRAINING_AND_VALIDATION_SIZE_ALL  # TRAINING_SIZE + VALID_SIZE must equal TRAINING_AND_VALIDATION_SIZE_ALL
-VALID_SIZE = 400
-TEST_SIZE_ALL = 500
 
 if sys.platform == 'win32':
     os.chdir("C:\\git\\Kaggles\\CatVsDogs\\CatVsDogs")
 
-train_images = [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR)] 
-train_dogs =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'dog' in i]
-train_cats =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'cat' in i]
-test_images =  [TEST_DIR+i for i in os.listdir(TEST_DIR)]
 
-x = len(train_dogs)
-y = len(train_cats)
-
-train_images = train_dogs + train_cats
-train_labels = np.array ((['dogs'] * TRAINING_AND_VALIDATION_SIZE_DOGS) + (['cats'] * TRAINING_AND_VALIDATION_SIZE_CATS))
 
 # resizes to image_size/image_size while keeping aspect ratio the same.  pads on right/bottom as appropriate 
 def read_image(file_path):
@@ -69,9 +52,7 @@ def prep_data(images):
     return data
 
 
-train_normalized = prep_data(train_images)
-print("Train shape: {}".format(train_normalized.shape))
-test_data = prep_data(test_images)
+
 
 np.random.seed(42)
 def randomize(dataset, labels):
@@ -80,16 +61,6 @@ def randomize(dataset, labels):
   shuffled_labels = labels[permutation]
   return shuffled_dataset, shuffled_labels
 
-train_dataset_rand, train_labels_rand = randomize(train_normalized, train_labels)
-
-# split up into training + valid
-valid_dataset = train_dataset_rand[:VALID_SIZE,:,:,:]
-valid_labels =   train_labels_rand[:VALID_SIZE]
-train_dataset = train_dataset_rand[VALID_SIZE:VALID_SIZE+TRAINING_SIZE,:,:,:]
-train_labels  = train_labels_rand[VALID_SIZE:VALID_SIZE+TRAINING_SIZE]
-print ('Training', train_dataset.shape, train_labels.shape)
-print ('Validation', valid_dataset.shape, valid_labels.shape)
-
 def reformat(dataset, labels):
   dataset = dataset.reshape(
     (-1, image_size, image_size, num_channels)).astype(np.float32)
@@ -97,15 +68,47 @@ def reformat(dataset, labels):
   labels = (np.arange(num_labels) == labels[:,None]).astype(np.float32)
   return dataset, labels
 
-train_dataset, train_labels = reformat(train_dataset, train_labels)
-valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
+
+
 #test_dataset, test_labels = reformat(test_dataset, test_labels)
-print ('Training set', train_dataset.shape, train_labels.shape)
-print ('Validation set', valid_dataset.shape, valid_labels.shape)
 #print ('Test set', test_dataset.shape, test_labels.shape)
 
 
 def ConvNet(model_save_path):
+
+    TRAINING_AND_VALIDATION_SIZE_DOGS = 12500
+    TRAINING_AND_VALIDATION_SIZE_CATS = 12500 
+    TRAINING_AND_VALIDATION_SIZE_ALL  = TRAINING_AND_VALIDATION_SIZE_CATS + TRAINING_AND_VALIDATION_SIZE_DOGS
+    TRAINING_SIZE = TRAINING_AND_VALIDATION_SIZE_ALL  # TRAINING_SIZE + VALID_SIZE must equal TRAINING_AND_VALIDATION_SIZE_ALL
+    VALID_SIZE = 400
+    TEST_SIZE_ALL = 500
+
+    train_images = [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR)] 
+    train_dogs =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'dog' in i]
+    train_cats =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'cat' in i]
+
+    train_images = train_dogs + train_cats
+    train_labels = np.array ((['dogs'] * TRAINING_AND_VALIDATION_SIZE_DOGS) + (['cats'] * TRAINING_AND_VALIDATION_SIZE_CATS))
+
+    train_normalized = prep_data(train_images)
+    print("Train shape: {}".format(train_normalized.shape))
+
+    train_dataset_rand, train_labels_rand = randomize(train_normalized, train_labels)
+
+    print ('Training set', train_dataset.shape, train_labels.shape)
+    print ('Validation set', valid_dataset.shape, valid_labels.shape)
+
+    # split up into training + valid
+    valid_dataset = train_dataset_rand[:VALID_SIZE,:,:,:]
+    valid_labels =   train_labels_rand[:VALID_SIZE]
+    train_dataset = train_dataset_rand[VALID_SIZE:VALID_SIZE+TRAINING_SIZE,:,:,:]
+    train_labels  = train_labels_rand[VALID_SIZE:VALID_SIZE+TRAINING_SIZE]
+    print ('Training', train_dataset.shape, train_labels.shape)
+    print ('Validation', valid_dataset.shape, valid_labels.shape)
+
+
+    train_dataset, train_labels = reformat(train_dataset, train_labels)
+    valid_dataset, valid_labels = reformat(valid_dataset, valid_labels)
 
     batch_size = 16
     graph = tf.Graph()
@@ -231,6 +234,10 @@ def ConvNet(model_save_path):
 
 
 def LoadAndRun(model_save_path):
+    
+    test_images =  [TEST_DIR+i for i in os.listdir(TEST_DIR)]
+    test_data = prep_data(test_images)
+
     tf.reset_default_graph()
     graph = tf.Graph()
     num_steps = 280
