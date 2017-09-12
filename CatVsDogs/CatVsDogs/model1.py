@@ -18,10 +18,10 @@ num_labels = 2
 
 # for small-sample testing
 OUTFILE = '/Users/pal004/Desktop/CatsVsDogsRedux/CatsAndDogs_pal15Jan2017_SmallerTest.npsave.bin'
-TRAINING_AND_VALIDATION_SIZE_DOGS = 10000 
-TRAINING_AND_VALIDATION_SIZE_CATS = 10000 
+TRAINING_AND_VALIDATION_SIZE_DOGS = 12500
+TRAINING_AND_VALIDATION_SIZE_CATS = 12500 
 TRAINING_AND_VALIDATION_SIZE_ALL  = TRAINING_AND_VALIDATION_SIZE_CATS + TRAINING_AND_VALIDATION_SIZE_DOGS
-TRAINING_SIZE = 1600  # TRAINING_SIZE + VALID_SIZE must equal TRAINING_AND_VALIDATION_SIZE_ALL
+TRAINING_SIZE = TRAINING_AND_VALIDATION_SIZE_ALL  # TRAINING_SIZE + VALID_SIZE must equal TRAINING_AND_VALIDATION_SIZE_ALL
 VALID_SIZE = 400
 TEST_SIZE_ALL = 500
 
@@ -31,6 +31,9 @@ if sys.platform == 'win32':
 train_images = [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR)] 
 train_dogs =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'dog' in i]
 train_cats =   [TRAIN_DIR+i for i in os.listdir(TRAIN_DIR) if 'cat' in i]
+
+x = len(train_dogs)
+y = len(train_cats)
 
 train_images = train_dogs + train_cats
 train_labels = np.array ((['dogs'] * TRAINING_AND_VALIDATION_SIZE_DOGS) + (['cats'] * TRAINING_AND_VALIDATION_SIZE_CATS))
