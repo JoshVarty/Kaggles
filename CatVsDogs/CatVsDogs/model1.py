@@ -12,6 +12,9 @@ image_size = 96; # 150x150.  Also, 224, 96, 64, and 32 are also common
 num_channels = 3
 pixel_depth = 255.0  # Number of levels per pixel.
 num_labels = 2
+patch_size_3 = 3
+depth = 32
+
 
 
 # for small-sample testing
@@ -105,8 +108,6 @@ print ('Validation set', valid_dataset.shape, valid_labels.shape)
 def ConvNet(model_save_path):
 
     batch_size = 16
-    patch_size_3 = 3
-    depth = 32
     graph = tf.Graph()
     with graph.as_default():
 
