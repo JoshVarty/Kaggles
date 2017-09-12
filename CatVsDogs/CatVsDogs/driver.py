@@ -1,4 +1,5 @@
 import model1
+import numpy as np
 
 model_save_path1 = "model/model.ckpt"
 model_save_path2 = "model/model2.ckpt"
@@ -13,7 +14,7 @@ results1 = model1.LoadAndRun(model_save_path1)
 
 
 with open("results/results.csv", 'w') as file:
-    file.write("ImageId,Label\n")
+    file.write("id,label\n")
     for idx in range(len(results1)):
          pred1 = int(results1[idx])
 
