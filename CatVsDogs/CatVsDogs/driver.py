@@ -9,4 +9,4 @@ model_save_path6 = "model/model6.ckpt"
 model_save_path7 = "model/model7.ckpt"
 
 #Three of the first model
-model1.ConvNet(model_save_path1)
+model1.LoadAndRun(model_save_path1)
