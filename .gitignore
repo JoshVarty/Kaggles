@@ -12,6 +12,7 @@
 train/
 model/
 test/
+.zip
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
