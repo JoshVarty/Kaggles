@@ -2,17 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>0313422e-4280-40a0-958d-47ebcd8815df</ProjectGuid>
+    <ProjectGuid>ed83bc67-74a3-467f-a852-546b49662261</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>AdversarialDefense.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>CatVsDogs</Name>
-    <RootNamespace>CatVsDogs</RootNamespace>
-    <InterpreterId>Global|VisualStudio|Josh</InterpreterId>
+    <Name>AdversarialDefense</Name>
+    <RootNamespace>AdversarialDefense</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,13 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="driver.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="model1.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="Global|VisualStudio|Josh" />
+    <Compile Include="AdversarialDefense.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
